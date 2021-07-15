@@ -1,4 +1,5 @@
 from locals import *
+from tictactoe.player_behaviour.PlayerBehaviour import get_player_move
 
 # game states
 IN_PROGRESS = 0
@@ -28,12 +29,7 @@ def play_game_ttt():
 
 
 def __play_round_ttt__(board, player):
-    while True:
-        line = randint(0, 2)
-        column = randint(0, 2)
-        if board[line, column] == 0:
-            board[line, column] = player
-            return board
+    return get_player_move(board, player)
 
 
 def __check_victory__(board):
