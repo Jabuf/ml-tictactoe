@@ -1,0 +1,5 @@
+# game states
+IN_PROGRESS = 0
+PLAYER1 = 1
+PLAYER2 = 2
+DRAW = 3
