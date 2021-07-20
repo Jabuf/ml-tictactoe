@@ -1,5 +1,5 @@
 from locals import *
-from tictactoe.database.data.Turn import Turn
+from tictactoe.database.entity.Turn import Turn
 from tictactoe.player_behaviour.PlayerBehaviour import get_player_move
 from constants.TicTacToeConstants import *
 
