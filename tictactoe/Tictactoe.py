@@ -1,5 +1,6 @@
 from locals import *
 from tictactoe.database.entity.Turn import Turn
+from tictactoe.database.entity.Result import Result
 from tictactoe.player_behaviour.PlayerBehaviour import get_player_move
 from constants.TicTacToeConstants import *
 
@@ -11,23 +12,24 @@ def __init_ttt_board__():
 
 def play_game_ttt():
     board = __init_ttt_board__()
-    game_state = IN_PROGRESS
+    result = Result(game_state=IN_PROGRESS)
     turn = 0
-    while not game_state > IN_PROGRESS and turn < 9:
-        board = __play_round_ttt__(board, __check_player__(turn), turn)
-        game_state = __check_victory__(board)
+
+    while not result.game_state > IN_PROGRESS and turn < 9:
+        board = __play_round_ttt__(board, __check_player__(turn), result, turn)
+        result.game_state = __check_victory__(board)
         turn += 1
 
-    if turn == 8 and game_state == IN_PROGRESS:
-        game_state = DRAW
+    if turn == 8 and result.game_state == IN_PROGRESS:
+        result.game_state = DRAW
 
-    return [game_state, board]
+    result.save()
+    return [result.game_state, board]
 
 
-def __play_round_ttt__(board, player, turn):
+def __play_round_ttt__(board, player, result, turn):
     move = get_player_move(board, player)
-    turn = Turn(turn=turn, move=move, player=player)
-    turn.save()
+    result.turns.append(Turn(turn=turn, move=move, player=player))
     return board
 
 

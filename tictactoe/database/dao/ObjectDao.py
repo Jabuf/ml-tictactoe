@@ -1,7 +1,6 @@
 import abc
 from abc import abstractmethod
 from tictactoe.database.entity.Entity import Entity
-from typing import TypeVar, Generic
 
 
 class ObjectDao(abc.ABC):
@@ -10,3 +9,8 @@ class ObjectDao(abc.ABC):
     @abstractmethod
     def delete_all():
         pass
+
+    @staticmethod
+    def clear_database():
+        for child in Entity.__subclasses__():
+            child.objects.delete()

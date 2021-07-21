@@ -1,10 +1,8 @@
 from mongoengine import *
+from tictactoe.database.entity.EmbeddedEntity import EmbeddedEntity
 
-from tictactoe.database.entity.Entity import Entity
 
-
-class Turn(Entity):
+class Turn(EmbeddedEntity):
     turn = IntField()
     move = ListField(IntField())
     player = IntField()
-    # result = Result
