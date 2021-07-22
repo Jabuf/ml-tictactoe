@@ -1,12 +1,17 @@
-from locals import *
+from random import randint
+
 from tictactoe.constants.TicTacToeConstants import *
 
 
-def get_player_move(board, turn):
-    if not turn % 2 == 0:
-        return __random_behaviour__(board, PLAYER2)
+def get_player_move(board, player):
+    return __random_behaviour__(board, player)
+
+
+def check_player(turn):
+    if turn % 2 == 0:
+        return PLAYER1
     else:
-        return __random_behaviour__(board, PLAYER1)
+        return PLAYER2
 
 
 def __random_behaviour__(board, player):

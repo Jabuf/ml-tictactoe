@@ -1,12 +1,14 @@
-from locals import *
-from tictactoe.database.entity.Turn import Turn
-from tictactoe.database.entity.Result import Result
-from tictactoe.player_behaviour.PlayerBehaviour import get_player_move
+import numpy as np
+from numpy import array, transpose
+
 from constants.TicTacToeConstants import *
+from tictactoe.database.entity.Result import Result
+from tictactoe.database.entity.Turn import Turn
+from tictactoe.player_behaviour.PlayerBehaviour import *
 
 
 def __init_ttt_board__():
-    ttt_board = array([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+    ttt_board = np.zeros(shape=(3,3))
     return ttt_board
 
 
@@ -16,11 +18,11 @@ def play_game_ttt():
     turn = 0
 
     while not result.game_state > IN_PROGRESS and turn < 9:
-        board = __play_round_ttt__(board, __check_player__(turn), result, turn)
+        board = __play_round_ttt__(board, check_player(turn), result, turn)
         result.game_state = __check_victory__(board)
         turn += 1
 
-    if turn == 8 and result.game_state == IN_PROGRESS:
+    if turn == 9 and result.game_state == IN_PROGRESS:
         result.game_state = DRAW
 
     result.save()
@@ -60,10 +62,3 @@ def __check_diagonals__(board):
         if board[0, 2] == board[1, 1] and board[0, 2] == board[2, 0]:
             return board[0, 2]
     return game_state
-
-
-def __check_player__(turn):
-    if turn % 2 == 0:
-        return PLAYER1
-    else:
-        return PLAYER2
