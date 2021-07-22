@@ -7,5 +7,5 @@ from mongoengine import *
 class Entity(Document):
     meta = {'abstract': True}
     id = ObjectId()
-    date = DateTimeField(default=datetime.today())
+    date = DateTimeField()
     pass

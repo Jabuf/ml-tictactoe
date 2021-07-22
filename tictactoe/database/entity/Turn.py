@@ -4,6 +4,6 @@ from tictactoe.database.entity.EmbeddedEntity import EmbeddedEntity
 
 
 class Turn(EmbeddedEntity):
-    turn = IntField()
+    number = IntField()
     move = ListField(IntField())
     player = IntField()
