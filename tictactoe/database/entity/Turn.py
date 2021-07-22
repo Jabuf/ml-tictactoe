@@ -1,4 +1,5 @@
 from mongoengine import *
+
 from tictactoe.database.entity.EmbeddedEntity import EmbeddedEntity
 
 

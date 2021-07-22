@@ -1,6 +1,7 @@
-from mongoengine import *
-from bson.objectid import ObjectId
 from datetime import datetime
+
+from bson.objectid import ObjectId
+from mongoengine import *
 
 
 class Entity(Document):

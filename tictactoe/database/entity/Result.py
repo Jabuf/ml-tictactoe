@@ -1,4 +1,5 @@
 from mongoengine import *
+
 from tictactoe.database.entity.Entity import Entity
 from tictactoe.database.entity.Turn import Turn
 
