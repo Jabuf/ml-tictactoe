@@ -11,18 +11,20 @@ init_db()
 ObjectDao.clear_database()
 
 sample_number = 100
-training_iteration = 5
-winning_games = None
-results = []
+training_iteration = 10
+winning_games = []
 
 for i in range(0, training_iteration):
-    session = Session(training_iteration=i)
-    now = datetime.today()
+    start = datetime.today()
+    session = Session(training_iteration=i, pool_successful_games=len(winning_games))
     for j in range(0, sample_number):
         play_game_ttt(session, winning_games)
+    end = datetime.today()
+    # winning_games = ResultDao.get_results_by_sessions_game_states(
+    #     SessionDao.get_sessions_by_training_iteration(i), PLAYER2)
+    session.execution_time = (end - start).microseconds / 1000
     session.save()
-    winning_games = ResultDao.get_results_by_sessions_game_states(
-        SessionDao.get_sessions_by_training_iteration(i), PLAYER1)
+    winning_games = ResultDao.get_all_results_by_game_states(PLAYER2)
 
 results = SessionDao.get_stats()
 print(results)

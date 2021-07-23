@@ -22,10 +22,10 @@ def play_game_ttt(session, results=None):
 
     while not result.game_state > IN_PROGRESS and turn < 9:
         # For now we train only the player 1
-        if results is not None and check_player(turn) == PLAYER1:
-            [board, last_move] = __play_round_ttt__(board, check_player(turn), result, turn, results, last_move)
+        if results is not None and check_player(turn) == PLAYER2:
+            [board, last_move] = __play_round_ttt__(board, check_player(turn), result, turn, session, results, last_move)
         else:
-            board = __play_round_ttt__(board, check_player(turn), result, turn)[0]
+            board = __play_round_ttt__(board, check_player(turn), result, turn, session)[0]
 
         result.game_state = __check_victory__(board)
         turn += 1
@@ -36,8 +36,8 @@ def play_game_ttt(session, results=None):
     session.results.append(result)
 
 
-def __play_round_ttt__(board, player, result, turn, results=None, opp_move=None):
-    move = get_player_move(board, results, opp_move, turn)
+def __play_round_ttt__(board, player, result, turn, session, results=None, opp_move=None):
+    move = get_player_move(board, session, results, opp_move, turn)
     play_move(board, move, player)
     result.turns.append(Turn(number=turn, move=move, player=player, date=datetime.today()))
     return [board, move]

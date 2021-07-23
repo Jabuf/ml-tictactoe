@@ -29,10 +29,13 @@ def get_successful_moves(results, move, turn_number):
     """
     moves = []
     for result in results:
-        for turn in result.turns:
-            if turn_number == 0 or turn.number == turn_number - 1:
-                if turn.move == move:
-                    moves += [move]
+        if turn_number == 0:
+            moves += [x.move for x in (list(filter(lambda x: x.number == 0, result.turns)))]
+        else:
+            for turn in result.turns:
+                if turn.number == turn_number - 1 and turn.move == move:
+                    moves += [x.move for x in (list(filter(lambda x: x.number == turn_number, result.turns)))]
+
     return moves
 
 
