@@ -14,9 +14,9 @@ def __init_ttt_board__():
     return ttt_board
 
 
-def play_game_ttt(results=None, ia_iteration=0):
+def play_game_ttt(session, results=None):
     board = __init_ttt_board__()
-    result = Result(game_state=IN_PROGRESS, ia_iteration=ia_iteration, date=datetime.today())
+    result = Result(game_state=IN_PROGRESS, date=datetime.today())
     turn = 0
     last_move = [0, 0]
 
@@ -33,8 +33,7 @@ def play_game_ttt(results=None, ia_iteration=0):
     if turn == 9 and result.game_state == IN_PROGRESS:
         result.game_state = DRAW
 
-    result.save()
-    return [result.game_state, board]
+    session.results.append(result)
 
 
 def __play_round_ttt__(board, player, result, turn, results=None, opp_move=None):
