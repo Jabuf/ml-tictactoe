@@ -7,32 +7,30 @@ from tictactoe.Tictactoe import *
 
 init_db()
 ObjectDao.clear_database()
-now = datetime.today()
-for i in range(0, 100):
-    result = play_game_ttt()
-results_1 = ResultDao.get_stats_game_states(now)
 
-# List of games won by player 1
-results = ResultDao.get_results_by_game_states(PLAYER1)
+sample_number = 100
+iteration_number = 5
+winning_games = None
+results = []
 
-now = datetime.today()
-for i in range(0, 100):
-    result = play_game_ttt(results)
+for i in range(1, iteration_number):
+    now = datetime.today()
+    for j in range(0, sample_number):
+        result = play_game_ttt(winning_games, iteration_number)
+    winning_games = ResultDao.get_results_by_game_states(PLAYER1, iteration_number)
+    results += [ResultDao.get_stats_game_states(now)]
 
-results_2 = ResultDao.get_stats_game_states(now)
+print(results)
 
-# List of games won by player 1
-results = ResultDao.get_results_by_game_states(PLAYER1)
+draws = []
+player1_victories = []
+player2_victories = []
 
-now = datetime.today()
-for i in range(0, 100):
-    result = play_game_ttt(results)
+for i, x in enumerate(results):
+    draws.append(x[DRAW][1])
+    player1_victories.append(x[PLAYER1][1])
+    player2_victories.append(x[PLAYER2][1])
 
-results_3 = ResultDao.get_stats_game_states(now)
-
-draw = [results_1[3][1], results_2[3][1], results_3[3][1]]
-player1_victories = [results_1[1][1], results_2[1][1], results_3[1][1]]
-player2_victories = [results_1[2][1], results_2[2][1], results_3[2][1]]
-plt.plot(draw, 'red', player1_victories, 'green', player2_victories, 'blue')
+plt.plot(draws, 'red', player1_victories, 'green', player2_victories, 'blue')
 plt.legend(['DRAW', 'PLAYER1', 'PLAYER2'])
 plt.show()

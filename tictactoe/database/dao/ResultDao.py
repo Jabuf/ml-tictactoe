@@ -19,5 +19,8 @@ class ResultDao(ObjectDao):
         return game_states
 
     @staticmethod
-    def get_results_by_game_states(game_state):
-        return Result.objects(game_state=game_state)
+    def get_results_by_game_states(game_state, ia_iteration=None):
+        if ia_iteration is not None:
+            return Result.objects(game_state=game_state, ia_iteration=ia_iteration)
+        else:
+            return Result.objects(game_state=game_state)

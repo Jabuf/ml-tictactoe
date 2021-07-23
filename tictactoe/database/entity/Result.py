@@ -6,4 +6,5 @@ from tictactoe.database.entity.Turn import Turn
 
 class Result(Entity):
     game_state = IntField()
+    ia_iteration = IntField()
     turns = EmbeddedDocumentListField(Turn)

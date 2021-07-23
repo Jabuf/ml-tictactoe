@@ -14,9 +14,9 @@ def __init_ttt_board__():
     return ttt_board
 
 
-def play_game_ttt(results=None):
+def play_game_ttt(results=None, ia_iteration=0):
     board = __init_ttt_board__()
-    result = Result(game_state=IN_PROGRESS, date=datetime.today())
+    result = Result(game_state=IN_PROGRESS, ia_iteration=ia_iteration, date=datetime.today())
     turn = 0
     last_move = [0, 0]
 
