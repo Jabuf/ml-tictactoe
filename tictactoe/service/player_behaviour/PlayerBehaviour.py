@@ -1,4 +1,5 @@
-from tictactoe.ml.Prediction import *
+from tictactoe.database.entity.Move import Move
+from tictactoe.service.ml.Prediction import *
 
 
 def get_player_move(board, session, results=None, opp_move=None, turn=None):
@@ -46,4 +47,4 @@ def __random_behaviour__(board):
         line = randint(0, 2)
         column = randint(0, 2)
         if board[line, column] == 0:
-            return [line, column]
+            return Move(column=column, line=line)

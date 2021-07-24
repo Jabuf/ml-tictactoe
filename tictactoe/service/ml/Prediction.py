@@ -1,3 +1,4 @@
+from collections import Counter
 from random import randint
 
 
@@ -12,6 +13,7 @@ def get_next_move(results, move, board, turn):
     """
     moves = get_successful_moves(results, move, turn)
     get_valid_moves(board, moves)
+    # return get_most_played_move(moves)
 
     if len(moves) > 1:
         return moves[randint(0, len(moves) - 1)]
@@ -51,3 +53,14 @@ def get_valid_moves(board, moves):
             moves.remove(move)
 
     return moves
+
+
+def get_most_played_move(moves):
+    """
+    Return the move played move among a list
+    @param moves: a list of moves
+    @return: most played move
+    """
+    move = Counter(moves).most_common(1)
+
+    return move

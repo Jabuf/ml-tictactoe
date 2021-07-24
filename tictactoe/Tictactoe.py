@@ -6,7 +6,6 @@ from numpy import transpose
 from tictactoe.constants.TicTacToeConstants import *
 from tictactoe.database.entity.Result import Result
 from tictactoe.database.entity.Turn import Turn
-from tictactoe.player_behaviour.PlayerBehaviour import *
 
 
 def __init_ttt_board__():
@@ -23,7 +22,8 @@ def play_game_ttt(session, results=None):
     while not result.game_state > IN_PROGRESS and turn < 9:
         # For now we train only the player 1
         if results is not None and check_player(turn) == PLAYER2:
-            [board, last_move] = __play_round_ttt__(board, check_player(turn), result, turn, session, results, last_move)
+            [board, last_move] = __play_round_ttt__(board, check_player(turn), result, turn, session, results,
+                                                    last_move)
         else:
             board = __play_round_ttt__(board, check_player(turn), result, turn, session)[0]
 
@@ -73,7 +73,7 @@ def __check_diagonals__(board):
 
 
 def play_move(board, move, player):
-    board[move[0], move[1]] = player
+    board[move.line, move.column] = player
 
 
 def check_player(turn):

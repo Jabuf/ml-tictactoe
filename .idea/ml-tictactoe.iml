@@ -14,7 +14,7 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/tictactoe/player_behaviour" />
+        <option value="$MODULE_DIR$/tictactoe/service/player_behaviour" />
         <option value="$MODULE_DIR$/tictactoe" />
       </list>
     </option>
