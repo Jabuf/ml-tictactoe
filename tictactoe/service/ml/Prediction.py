@@ -1,6 +1,8 @@
 from collections import Counter
 from random import randint
 
+# from tictactoe.service.MoveService import get_all_possible_moves
+
 
 def get_next_move(results, move, board, turn):
     """
@@ -35,7 +37,7 @@ def get_successful_moves(results, move, turn_number):
             moves += [x.move for x in (list(filter(lambda x: x.number == 0, result.turns)))]
         else:
             for turn in result.turns:
-                if turn.number == turn_number - 1 and turn.move == move:
+                if turn.number == turn_number - 1 and turn.move.equals(move):
                     moves += [x.move for x in (list(filter(lambda x: x.number == turn_number, result.turns)))]
 
     return moves
@@ -49,7 +51,7 @@ def get_valid_moves(board, moves):
     @return: moves that are valid
     """
     for move in moves:
-        if not board[move[0], move[1]] == 0:
+        if not board[move.line, move.column] == 0:
             moves.remove(move)
 
     return moves
@@ -61,6 +63,7 @@ def get_most_played_move(moves):
     @param moves: a list of moves
     @return: most played move
     """
+    # get_a
     move = Counter(moves).most_common(1)
 
     return move

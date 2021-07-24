@@ -4,7 +4,8 @@ from tictactoe.database.entity.EmbeddedEntity import EmbeddedEntity
 
 
 class Move(EmbeddedEntity):
-    column = IntField()
     line = IntField()
+    column = IntField()
 
-
+    def equals(self, move):
+        return self.column == move.column and self.line == move.line
